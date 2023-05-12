@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-// Define the schema
+// Define the schema for the organisation
 const OrganisationSchema = new mongoose.Schema({
     name: {
         type: String,
