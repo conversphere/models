@@ -32,7 +32,7 @@ class Organisation {
   public createdAt!: Date;
 
   @prop({ default: Date.now, update: Date.now })
-  modifiedAt!: Date;
+  public modifiedAt!: Date;
 }
 const OrganisationModel = getModelForClass(Organisation);
 // Create the model
