@@ -27,6 +27,12 @@ class Organisation {
 
   @prop()
   public description?: string;
+
+  @prop({ default: Date.now })
+  public createdAt!: Date;
+
+  @prop({ default: Date.now, update: Date.now })
+  modifiedAt!: Date;
 }
 const OrganisationModel = getModelForClass(Organisation);
 // Create the model
