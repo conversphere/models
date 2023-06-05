@@ -1,4 +1,5 @@
 import { getModelForClass, modelOptions, prop } from "@typegoose/typegoose";
+import mongoose from "mongoose";
 
 @modelOptions({
   schemaOptions: {
@@ -10,7 +11,7 @@ import { getModelForClass, modelOptions, prop } from "@typegoose/typegoose";
 })
 class Organisation {
   @prop({ alias: "orgId" })
-  public _id!: string;
+  public _id!: mongoose.Types.ObjectId;
 
   @prop({ required: true })
   public name!: string;
