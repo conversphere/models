@@ -1,40 +1,34 @@
-import mongoose from 'mongoose';
-// Define the schema for the organisation
-const OrganisationSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    website: {
-      type: String,
-      optional: true,
-    },
-    description: {
-      type: String,
-      optional: true,
-    },
-  },
-  {
-    virtuals: {
-      orgId: {
-        get() {
-          return this._id;
-        },
-      },
-    },
-  }
-);
+import { getModelForClass, modelOptions, prop } from "@typegoose/typegoose";
+import mongoose from "mongoose";
 
+@modelOptions({
+  schemaOptions: {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    id: false,
+    _id: false,
+  },
+})
+class Organisation {
+  @prop({ alias: "orgId" })
+  public _id!: string;
+
+  @prop({ required: true })
+  public name!: string;
+
+  @prop({ required: true, unique: true, index: true })
+  public email!: string;
+
+  @prop({ required: true })
+  public password!: string;
+
+  @prop()
+  public webstite?: string;
+
+  @prop()
+  public description?: string;
+}
+const OrganisationModel = getModelForClass(Organisation);
 // Create the model
-const Organisation = mongoose.model('Organisation', OrganisationSchema);
-export default Organisation;
+
+export default OrganisationModel;
