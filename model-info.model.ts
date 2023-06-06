@@ -1,10 +1,19 @@
-import { prop, getModelForClass } from '@typegoose/typegoose';
-
-class ModelInfo {
+import {
+    prop,
+    getModelForClass,
+    modelOptions,
+    ReturnModelType,
+} from '@typegoose/typegoose';
+@modelOptions({
+    schemaOptions: {
+        collection: 'model_info',
+    },
+})
+export class ModelInfo {
     @prop({ type: () => [String], required: true })
     public filePath!: string[];
 
-    @prop()
+    @prop({ index: true, required: true })
     public indexName!: string;
 
     @prop()
@@ -21,6 +30,16 @@ class ModelInfo {
 
     @prop({ default: Date.now, update: Date.now })
     public modifiedAt!: Date;
+
+    @prop({ default: false })
+    public isIndexReady!: boolean;
+
+    public static findByIndexName(
+        this: ReturnModelType<typeof ModelInfo>,
+        name: string,
+    ) {
+        return this.find({ indexName: name }).exec(); // thanks to "ReturnModelType" "this" has type information
+    }
 }
 const ModelInfoDocument = getModelForClass(ModelInfo);
 
