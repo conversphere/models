@@ -4,6 +4,7 @@ import {
     modelOptions,
     ReturnModelType,
 } from '@typegoose/typegoose';
+import mongoose from 'mongoose';
 @modelOptions({
     schemaOptions: {
         collection: 'model_info',
@@ -17,7 +18,7 @@ export class ModelInfo {
     public indexName!: string;
 
     @prop()
-    public orgId!: string;
+    public orgId!: mongoose.Types.ObjectId;
 
     @prop()
     public name!: string;
