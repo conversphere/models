@@ -33,6 +33,9 @@ export class ModelInfo {
     public modifiedAt!: Date;
 
     @prop({ default: false })
+    public isModelReady!: boolean;
+
+    @prop({ default: false })
     public isIndexReady!: boolean;
 
     public static findByIndexName(
